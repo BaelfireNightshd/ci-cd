@@ -1,0 +1,14 @@
+name: Build and Test # the name of the workflow
+on: [ push ] # the triggers. This is just when there's a push
+jobs: # The list of jobs to run
+  build-and-test: # name of our job
+    runs-on: ubuntu-latest # specify the runner
+    steps: # list of the steps
+      - uses: actions/checkout@v3 # brings our code into the current directory
+      - uses: actions/setup-node@v3 # installs node.js
+        with: # the inputs into the previous step. 
+          node-version: 18
+      - run: npm ci # clean install. 
+      - run: npm run build # build the project
+      - run: npm run test:integration # run the integration tests
+      - run: npm run test:e2e # run the e2e tests
