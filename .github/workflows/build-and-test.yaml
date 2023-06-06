@@ -12,3 +12,7 @@ jobs: # The list of jobs to run
       - run: npm run build # build the project
       - run: npm run test:integration # run the integration tests
       - run: npm run test:e2e # run the e2e tests
+      - uses: actions/upload-artifact@v3 # allows us to save our cypress videos
+        with: 
+          name: e2e-videos # name of the artifact
+          path: cypress/videos/ # directory to save artifacts from
