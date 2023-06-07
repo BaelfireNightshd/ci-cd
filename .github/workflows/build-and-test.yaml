@@ -1,6 +1,10 @@
 name: Build and Test # the name of the workflow
 on: #[ push ] # the triggers. This is just when there's a push
   workflow_call: # change to more of a function. 
+    inputs: # args
+      upload-pages-artifact: # arg name
+        type: boolean 
+        required: false # not required, could also provide a default: true, but it defaults to false
 jobs: # The list of jobs to run
   build-and-test: # name of our job
     runs-on: ubuntu-latest # specify the runner
@@ -17,3 +21,7 @@ jobs: # The list of jobs to run
         with: 
           name: e2e-videos # name of the artifact
           path: cypress/videos/ # directory to save artifacts from in the runner environment
+      - if: ${{ inputs.upload-pages-artifact }}
+        uses: actions/upload-pages-artifact@v1 # upload the build to github pages if deploy
+        with:
+          path: build/
