@@ -1,5 +1,6 @@
 name: Build and Test # the name of the workflow
-on: [ push ] # the triggers. This is just when there's a push
+on: #[ push ] # the triggers. This is just when there's a push
+  workflow_call: # change to more of a function. 
 jobs: # The list of jobs to run
   build-and-test: # name of our job
     runs-on: ubuntu-latest # specify the runner
@@ -15,4 +16,4 @@ jobs: # The list of jobs to run
       - uses: actions/upload-artifact@v3 # allows us to save our cypress videos
         with: 
           name: e2e-videos # name of the artifact
-          path: cypress/videos/ # directory to save artifacts from
+          path: cypress/videos/ # directory to save artifacts from in the runner environment
